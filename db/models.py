@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models import ForeignKey
+from django.utils import timezone
 
 
 class Race(models.Model):
@@ -13,7 +14,11 @@ class Skill(models.Model):
         "this is a description of the bonus",
         max_length=255
     )
-    race = ForeignKey(Race, on_delete=models.CASCADE)
+    race = ForeignKey(
+        Race,
+        on_delete=models.CASCADE,
+        related_name="skill_races"
+    )
 
 
 class Guild(models.Model):
@@ -34,4 +39,4 @@ class Player(models.Model):
         null=True,
         related_name="guilds"
     )
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(default=timezone.now)
