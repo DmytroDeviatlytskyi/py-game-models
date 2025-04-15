@@ -28,6 +28,10 @@ class Player(models.Model):
         "short description provided by a user about himself/herself.",
         max_length=255
     )
-    race = ForeignKey(Race, on_delete=models.CASCADE)
-    guild = ForeignKey(Guild, on_delete=models.SET_NULL, null=True)
-    created_at = models.DateTimeField
+    race = ForeignKey(Race, on_delete=models.CASCADE, related_name="races")
+    guild = ForeignKey(
+        Guild, on_delete=models.SET_NULL,
+        null=True,
+        related_name="guilds"
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
